@@ -41,25 +41,8 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-
-    <div class="footer-widget facebook-fanpage" style="border: 1px solid orange;position: fixed;bottom: 0px;right: 0px;width: 300px;background:#fff;padding-left: 5px;">
-        <div style="position: absolute;top: 2px;right: 5px;cursor: pointer;"><i class="fa fa-angle-down fa-2x hidden-page" data-status="0" style="font-weight: bold;color: green;"></i></div>
-        <div style="color: orange;font-size: 15px;"><b>{{$website['phone']}}</b> <img src="{{asset('images/phone.gif')}}" alt="" width="50px;"></div>
-        <div class="fb-page" data-href="https://www.facebook.com/nabagiacnc/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-
-            <div class="fb-page-box">
-                <div class="fb-page" data-href="https://www.facebook.com/nabagiacnc/" data-height="300" data-width="300"
-                     data-small-header="true" data-adapt-container-width="true" data-hide-cover="false"
-                     data-show-facepile="false" data-tabs="messages" data-show-posts="false">
-                </div>
-            </div>
-        </div>
-    </div>
-
 </footer>
 

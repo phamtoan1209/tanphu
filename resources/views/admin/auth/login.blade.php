@@ -20,26 +20,26 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{route('admin')}}"><b>Admin</b>Sbd</a>
+        <a href="{{route('admin')}}"><b>TÂNPHÚ</b>admin</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Đăng nhập để bắt đầu làm việc</p>
         <form action="{{route('adminLogin')}}" method="post">
             @csrf
             <div class="form-group has-feedback">
-                {!! Form::text('username',old('username'),['class'=>'form-control','placeholder'=>'Email or Username']) !!}
+                {!! Form::text('username',old('username'),['class'=>'form-control','placeholder'=>'Email or tên đăng nhập']) !!}
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             {!! $errors->first('username') ? '<p class="text-danger">'. $errors->first('username') .'</p>' : ''!!}
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             {!! $errors->first('password') ? '<p class="text-danger">'. $errors->first('password') .'</p>' : ''!!}
             <div class="row">
                 <div class="col-xs-12">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -48,8 +48,7 @@
         {!! $errors->first('message') ? '<span class="text-danger">' . $errors->first('message') . '</span>' : '' !!}
         </p>
         <div style="margin-top: 5px;">
-            <a href="#">Reset password</a><br>
-            Copyright © 2017-2018 <b>Sbd</b>. All rights reserved.
+            Copyright © 2019-2020 <b>Tân phú</b>.
         </div>
     </div>
     <!-- /.login-box-body -->

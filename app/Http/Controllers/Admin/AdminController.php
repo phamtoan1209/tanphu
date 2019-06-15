@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Model\Product;
 use App\Model\Post;
 use App\Model\Category;
-use App\Model\Contact;
+use App\Model\Admin;
+use App\Model\Support;
 
 class AdminController extends Controller
 {
@@ -23,8 +22,8 @@ class AdminController extends Controller
         $data['postOff'] = Post::where('status' ,Post::STATUS_OFF)->count();
         $data['products'] = Product::count();
         $data['productOff'] = Product::where('status' ,Product::STATUS_OFF)->count();
-        $data['contacts'] = Contact::count();
-        $data['contactUnRead'] = Contact::where('status' ,Contact::STATUS_UNREAD)->count();
+        $data['admins'] = Admin::count();
+        $data['supports'] = Support::count();
         return view('admin.index',$data);
     }
 

@@ -13,18 +13,26 @@
                         @csrf
                         <div class="box-body">
                             <div class="form-group">
-                                <label>Thể loại</label>
-                                <select name="type" id="type" class="form-control">
-                                    <option value=""> -- Chọn danh mục --</option>
-                                    <option value="{{$typeProduct}}" {{(isset($item) && $item->type == $typeProduct ) ? 'selected="selected"' : '' }}>Danh mục sản phẩm</option>
-                                    <option value="{{$typePost}}" {{(isset($item) && $item->type == $typePost ) ? 'selected="selected"' : '' }}>Danh mục tin tức</option>
+                                <label>Thành phố</label>
+                                <select name="city" id="city" class="form-control" required>
+                                    <option value=""> -- Chọn thành phố --</option>
+                                    @foreach($listProvince as $k => $v)
+                                        <option value="{{$k}}" {{ isset($item) && $item->city == $k ? 'selected' : ''}}>{{$v}}</option>
+                                    @endforeach
                                 </select>
-                                {!! $errors->first('type') ? '<p class="text-danger">'. $errors->first('type') .'</p>' : ''!!}
                             </div>
                             <div class="form-group">
-                                <label>Tên danh mục</label>
-                                {!! Form::text('name', old( 'name',isset($item) ? $item->name : ''), ['class' => 'form-control','placeholder'=>"Tên danh mục"]) !!}
+                                <label>Tên cửa hàng</label>
+                                {!! Form::text('name', old( 'name',isset($item) ? $item->name : ''), ['class' => 'form-control','placeholder'=>"Tên cửa hàng"]) !!}
                                 {!! $errors->first('name') ? '<p class="text-danger">'. $errors->first('name') .'</p>' : ''!!}
+                            </div>
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                {!! Form::text('phone', old( 'phone',isset($item) ? $item->phone : ''), ['class' => 'form-control','placeholder'=>"Số điện thoại"]) !!}
+                            </div>
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                {!! Form::text('address', old( 'address',isset($item) ? $item->address : ''), ['class' => 'form-control','placeholder'=>"Địa chỉ"]) !!}
                             </div>
                         </div>
                         <div class="box-footer">
@@ -46,7 +54,7 @@
     <script src="{{ asset('backend/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.select2').select2();
+            $('#city').select2();
         });
     </script>
 @stop

@@ -15,6 +15,7 @@ class UpdateProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->integer('views')->default(0);
+            $table->text('description')->nullable();
         });
     }
 

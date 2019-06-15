@@ -15,6 +15,7 @@ class UpdatePostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->integer('views')->default(0);
+            $table->text('description')->nullable();
         });
     }
 

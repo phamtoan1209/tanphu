@@ -40,7 +40,7 @@
                 <div class="inner">
                     <h3>{{$posts}}</h3>
 
-                    <p>Bài thi công( {{$postOff}} ẩn - {{$posts - $postOff}} hiển thị )</p>
+                    <p>Tin tức( {{$postOff}} ẩn - {{$posts - $postOff}} hiển thị )</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -53,13 +53,41 @@
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>{{$contacts}}</h3>
-                    <p>Liên hệ( {{$contactUnRead}} chưa đọc )</p>
+                    <h3>{{$admins}}</h3>
+                    <p>Nguời quản trị</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-comments"></i>
+                    <i class="fa fa-key"></i>
                 </div>
-                <a href="{{route('contacts.list')}}" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{route('admins.list')}}" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-fuchsia">
+                <div class="inner">
+                    <h3>{{$supports}}</h3>
+                    <p>Nguời hỗ trợ</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="{{route('supports.list')}}" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-purple">
+                <div class="inner">
+                    <h3>{{$supports}}</h3>
+                    <p>Cửa hàng</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-map-signs"></i>
+                </div>
+                <a href="{{route('stores.list')}}" class="small-box-footer">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->

@@ -60,7 +60,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'],function (){
     Route::group([
         'prefix' => 'admins',
         'as' => 'admins.',
-        'middleware' => 'role:can_manage_admins '
+        'middleware' => 'role:can_manage_admins'
     ],function (){
         Route::get('/list','Admin\ManageAdminController@index')->name('list');
         Route::any('/create','Admin\ManageAdminController@create')->name('create');
@@ -155,6 +155,38 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'],function (){
         Route::post('/status/{id}','Admin\SlideController@status')->name('status');
     });
 
+
+    /**
+     * manager supports
+     */
+    Route::group([
+        'prefix' => 'supports',
+        'as' => 'supports.',
+        'middleware' => 'role:can_manage_supports'
+    ],function (){
+        Route::get('/list','Admin\SupportController@index')->name('list');
+        Route::any('/create','Admin\SupportController@create')->name('create');
+        Route::any('/update/{id}','Admin\SupportController@create')->name('update');
+        Route::post('/delete/{id}','Admin\SupportController@delete')->name('delete');
+        Route::post('/status/{id}','Admin\SupportController@status')->name('status');
+    });
+
+
+    /**
+     * manager stores
+     */
+    Route::group([
+        'prefix' => 'stores',
+        'as' => 'stores.',
+        'middleware' => 'role:can_manage_stores'
+    ],function (){
+        Route::get('/list','Admin\StoreControler@index')->name('list');
+        Route::any('/create','Admin\StoreControler@create')->name('create');
+        Route::any('/update/{id}','Admin\StoreControler@create')->name('update');
+        Route::post('/delete/{id}','Admin\StoreControler@delete')->name('delete');
+        Route::post('/status/{id}','Admin\StoreControler@status')->name('status');
+    });
+
     /**
      * manager intros
      */
@@ -166,7 +198,6 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'],function (){
         Route::get('/list','Admin\IntroController@index')->name('list');
         Route::any('/update/{id}','Admin\IntroController@create')->name('update');
     });
-
 
 
 });
