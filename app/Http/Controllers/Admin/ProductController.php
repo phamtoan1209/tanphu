@@ -9,6 +9,7 @@ use App\Model\Product;
 use App\Model\Category;
 use Illuminate\Support\Facades\Config;
 use App\Model\ProductDetail;
+use App\Model\ProductImage;
 
 class ProductController extends BaseController
 {
@@ -16,14 +17,16 @@ class ProductController extends BaseController
     protected $category;
     protected $pathUpload;
     protected $detail;
+    protected $image;
 
-    public function __construct(Product $model, Category $category,ProductDetail $detail)
+    public function __construct(Product $model, Category $category,ProductDetail $detail,ProductImage $image)
     {
         $prefix = explode('/',\Route::current()->getPrefix());
         $this->lastPrefix = end($prefix);
         $this->Model = $model;
         $this->category = $category;
         $this->detail = $detail;
+        $this->image = $image;
         $this->pathUpload = 'products';
 
         // routes in controller
@@ -38,6 +41,8 @@ class ProductController extends BaseController
         view()->share('actionStatus',$this->lastPrefix.'.status');
         view()->share('actionAddDetail',$this->lastPrefix.'.adddetail');
         view()->share('actionDelDetail',$this->lastPrefix.'.deldetail');
+        view()->share('actionAddImage',$this->lastPrefix.'.addimage');
+        view()->share('actionDelImage',$this->lastPrefix.'.delimage');
         view()->share('breadcrumb','sản phẩm');
         view()->share('modul',$this->pathUpload);
         view()->share('statusOff',Product::STATUS_OFF);
@@ -45,24 +50,16 @@ class ProductController extends BaseController
         view()->share('selectCategory',Category::getAllCategoryProduct());
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function index(Request $request){
         $filter = $request->all();
         $datas = $this->Model->getList($filter);
         return view($this->list,compact('datas','filter'));
     }
 
-    /**
-     * @param Request $request
-     * @param null $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
     public function create(Request $request, $id = null){
         if($request->isMethod('get')){
             if($id){
-                $item = $this->Model->with('details')->findOrFail($id);
+                $item = $this->Model->with(['details','images'])->findOrFail($id);
                 return view($this->createUpdate,compact('item'));
             }
             return view($this->createUpdate);
@@ -74,7 +71,8 @@ class ProductController extends BaseController
         $data = $request->only('name','content','category_id','admin_id','description');
         if($request->hasFile('thumb')){
             $file = $request->file('thumb');
-            $data['thumb'] = $this->uploadFile($file,$this->pathUpload);
+            $data['large'] = $this->uploadFile($file,$this->pathUpload,true, 200,200);
+            $data['thumb'] = $this->getUrlImgThumb($data['large'],$this->pathUpload);
         }
         $data['status'] = 0;
         if($request->has('status')){
@@ -87,10 +85,6 @@ class ProductController extends BaseController
         ]);
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function delete($id){
         $item = $this->Model->findOrFail($id);
         $item->delete();
@@ -127,6 +121,35 @@ class ProductController extends BaseController
 
     public function delDetail($id){
         $item = $this->detail->findOrFail($id);
+        $item->delete();
+        return redirect()->back()->with([
+            'alert_message' => Config::get('constants.DELETE_SUCCESS'),
+        ]);
+    }
+
+    public function addImage(Request $request, $productId){
+        $request->validate([
+            'thumb' => 'required',
+        ]);
+        if($request->has('thumb')){
+            $files = $request->file('thumb');
+            foreach ($files as $image){
+                $data['product_id'] = $productId;
+                $data['large'] = $this->uploadFile($image,'product_images',true,'130','130');
+                $data['thumb'] = $this->getUrlImgThumb($data['large'],'product_images');
+                $this->image->insert($data);
+            }
+            return redirect()->back()->with([
+                'alert_message' => Config::get('constants.UPDATE_SUCCESS'),
+            ]);
+        }
+        return redirect()->back()->with([
+            'alert_message' => Config::get('constants.ERROR'),
+        ]);
+    }
+
+    public function delImage($id){
+        $item = $this->image->findOrFail($id);
         $item->delete();
         return redirect()->back()->with([
             'alert_message' => Config::get('constants.DELETE_SUCCESS'),

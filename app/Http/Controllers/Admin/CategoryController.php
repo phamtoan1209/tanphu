@@ -11,6 +11,7 @@ class CategoryController extends BaseController
 {
 
     protected $model;
+    public $pathUpload;
 
     public function __construct(Category $model)
     {
@@ -19,6 +20,7 @@ class CategoryController extends BaseController
         $this->Model = $model;
         $this->list = 'admin.'.$this->lastPrefix.'.list';
         $this->createUpdate = 'admin.'.$this->lastPrefix.'.create_update';
+        $this->pathUpload = 'categorys';
         view()->share('actionList',$this->lastPrefix.'.list');
         view()->share('actionCreate',$this->lastPrefix.'.create');
         view()->share('actionUpdate',$this->lastPrefix.'.update');
@@ -46,18 +48,25 @@ class CategoryController extends BaseController
      */
     public function create(Request $request, $id = null){
         if($request->isMethod('get')){
+            $data['parentPost'] = Category::getParentCategory('post');
+            $data['parentProduct'] = Category::getParentCategory('product');
             if($id){
-                $item = $this->Model->findOrFail($id);
-                return view($this->createUpdate,compact('item'));
+                $data['item'] = $this->Model->findOrFail($id);
             }
-            return view($this->createUpdate);
+            return view($this->createUpdate,$data);
         }
         $request->validate([
             'name' => 'required|unique:'.$this->lastPrefix. ($id ? ",id,$id" : ''),
             'type' => 'required'
         ]);
-        $data = $request->only('name','type');
+        $data = $request->only('name','type','parent_id','description','hot','thumb');
+        if($request->hasFile('thumb')){
+            $file = $request->file('thumb');
+            $data['large'] = $this->uploadFile($file,$this->pathUpload,true, 200,200);
+            $data['thumb'] = $this->getUrlImgThumb($data['large'],$this->pathUpload);
+        }
         $data['slug'] = str_slug($data['name']);
+        $data['parent_id'] = $data['parent_id'] !== null ? $data['parent_id'] : 0;
         $this->Model->updateOrCreate(['id' =>$id ],$data);
         return redirect()->route($this->lastPrefix.'.list')->with([
             'alert_message' => Config::get('constants.UPDATE_SUCCESS'),

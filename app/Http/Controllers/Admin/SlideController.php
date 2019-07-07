@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Admin\BaseController;
 use App\Model\Slide;
 use Illuminate\Support\Facades\Config;
+
 class SlideController extends BaseController
 {
 
@@ -55,7 +54,7 @@ class SlideController extends BaseController
         }
         if($request->hasFile('thumb')){
             $file = $request->file('thumb');
-            $data['thumb'] = $this->uploadFile($file,$this->pathUpload);
+            $data['thumb'] = $this->uploadFile($file,$this->pathUpload,true,500,200);
         }
         $data['status'] = 0;
         if($request->has('status')){

@@ -6,6 +6,7 @@ return [
     'DELETE_SUCCESS' => 'Xóa thành công!',
     'UPDATE_SUCCESS' => 'Chỉnh sửa thành công!',
     'UPDATE_PROFILE_SUCCESS' => 'Chỉnh sửa thông tin admin thành công!',
+    'ERROR' => 'Đã có lỗi xảy ra!',
     'ERROR_LOGIN' => 'Đăng nhập lỗi. hãy kiểm tra lại thông tin của bạn!',
     'ERROR_ACCESS' => 'Bạn không có quyền vào trang!',
     'LOGIN_FAIL' => 'Đăng nhập lỗi.Thông tin đăng nhập sai hoặc tài khoản đã bị khóa!',

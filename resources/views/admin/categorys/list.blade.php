@@ -27,7 +27,7 @@
                                             <select name="type" id="type" class="form-control">
                                                 <option value=""> -- Chọn danh mục --</option>
                                                 <option value="{{$typeProduct}}" {{ (isset($filter['type']) && (int)$filter['type'] == $typeProduct ) ? 'selected="selected"' : '' }}>Danh mục sản phẩm</option>
-                                                <option value="{{$typePost}}"  {{ (isset($filter['type']) && (int)$filter['type'] == $typePost ) ? 'selected="selected"' : '' }}>Danh mục thi công</option>
+                                                <option value="{{$typePost}}"  {{ (isset($filter['type']) && (int)$filter['type'] == $typePost ) ? 'selected="selected"' : '' }}>Danh mục tin tức</option>
                                             </select>
                                         </div>
                                     </div>
@@ -45,6 +45,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Ảnh</th>
                                     <th>Tên danh mục</th>
                                     <th>Thể loại</th>
                                     <th>Hành động</th>
@@ -54,10 +55,15 @@
                                 @foreach($datas as $item)
                                     <tr class='text-success'>
                                         <td>{{$item->id}}</td>
+                                        <td>
+                                            @if($item->thumb != '')
+                                                <img src="{{ asset($item->thumb) }}" alt="{{$item->name}}" width="50">
+                                            @endif
+                                        </td>
                                         <td>{{$item->name}}</td>
                                         <td>
                                             @if($item->type == $typePost)
-                                                Thi công
+                                                Tin tức
                                             @else
                                                 Sản phẩm
                                             @endif

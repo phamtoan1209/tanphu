@@ -113,6 +113,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'],function (){
         Route::post('/status/{id}','Admin\ProductController@status')->name('status');
         Route::post('/add-detail/{product_id}','Admin\ProductController@addDetail')->name('adddetail');
         Route::post('/delete-detail/{id}','Admin\ProductController@delDetail')->name('deldetail');
+        Route::post('/add-image/{id}','Admin\ProductController@addImage')->name('addimage');
+        Route::post('/delete-image/{id}','Admin\ProductController@delImage')->name('delimage');
     });
 
     /**

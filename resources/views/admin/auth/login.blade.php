@@ -20,7 +20,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{route('admin')}}"><b>TÂNPHÚ</b>admin</a>
+        <a href="{{route('admin')}}"><b>{{Config::get('webinfos.NAME')}}</b> admin</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -48,7 +48,7 @@
         {!! $errors->first('message') ? '<span class="text-danger">' . $errors->first('message') . '</span>' : '' !!}
         </p>
         <div style="margin-top: 5px;">
-            Copyright © 2019-2020 <b>Tân phú</b>.
+            Copyright © 2019-2020 <b>{{Config::get('webinfos.TITLE')}}</b>.
         </div>
     </div>
     <!-- /.login-box-body -->

@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="{{route('admin')}}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>TAN</b>PHU</span>
+        <span class="logo-mini"><b>{{Config::get('webinfos.WORD_BOLD')}}</b>{{Config::get('webinfos.WORD_NORMAL')}}</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>TAN</b>PHU</span>
+        <span class="logo-lg"><b>{{Config::get('webinfos.WORD_BOLD')}}</b>{{Config::get('webinfos.WORD_NORMAL')}}</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

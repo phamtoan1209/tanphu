@@ -14,11 +14,18 @@
                         <input type="hidden" name="admin_id" value="{{$currentAdmin->id}}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="exampleInputFile">Ảnh sản phẩm</label>
-                                <input type="file" name="thumb" id="thumb" accept="image/*"><br>
-                                <?php if(isset($item) && $item->thumb != ''): ?>
-                                <img src="{{asset($item->thumb)}}" alt="" width="200">
-                                <?php endif; ?>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label for="exampleInputFile">Ảnh sản phẩm</label>
+                                        <input type="file" name="thumb" id="thumb" accept="image/*"><br>
+                                        <p>Lưu ý: Chọn ảnh vuông để hiển thị đẹp nhất</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <?php if(isset($item) && $item->thumb != ''): ?>
+                                        <img src="{{asset($item->thumb)}}" alt="" width="150">
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Thể loại</label>
@@ -35,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Mô tả ngắn</label>
-                                {!! Form::textarea('description', old( 'description',isset($item) ? $item->description : ''), ['class' => 'form-control','placeholder'=>"Mô tả ngắn"]) !!}
+                                {!! Form::textarea('description', old( 'description',isset($item) ? $item->description : ''), ['class' => 'form-control','placeholder'=>"Mô tả ngắn",'rows' => '5']) !!}
                                 {!! $errors->first('description') ? '<p class="text-danger">'. $errors->first('description') .'</p>' : ''!!}
                             </div>
                             <div class="form-group">
@@ -114,6 +121,52 @@
                             </div>
                         </form>
                     </div>
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Ảnh chi tiết {{$breadcrumb}}</h3>
+                        </div>
+                        <div>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Ảnh</th>
+                                    <th>Quản lý</th>
+                                </tr>
+                                @if(!empty($item->images))
+                                    @foreach($item->images as $detail)
+                                        <tr>
+                                            <td>
+                                                <img width="50" src="{{asset($detail->thumb)}}">
+                                            </td>
+                                            <td>
+                                                <label for="">
+                                                    <form action="{{route($actionDelImage,['id'=>$detail->id])}}" method="post" class="form-delete">
+                                                        @csrf
+                                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger btn-flat btn-delete" title="Delete">
+                                                            <i class="fa fa-times"></i> Xóa
+                                                        </a>
+                                                    </form>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </table>
+                        </div>
+                        <!-- form start -->
+                        <form role="form" method="post" enctype="multipart/form-data" action="{{ route($actionAddImage,['product_id'=>$item->id]) }}">
+                            @csrf
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>Thêm nhiều ảnh</label>
+                                    <input type="file" name="thumb[]" id="thumb" accept="image/*" multiple="true"><br>
+                                    <p>Lưu ý: Chọn ảnh vuông để hiển thị đẹp nhất</p>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary btn-flat">Xác nhận</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             @endif
         </div>
@@ -137,7 +190,7 @@
             CKEDITOR.replace('editor1',{
                 uiColor : '#57B900',
                 language : 'vi',
-                height : '600',
+                height : '500',
                 filebrowserBrowseUrl: '{{ asset('backend/plugins/ckfinder/ckfinder.html') }}',
                 filebrowserImageBrowseUrl: '{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Images') }}',
                 filebrowserFlashBrowseUrl: '{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Flash') }}',

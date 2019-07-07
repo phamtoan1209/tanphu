@@ -15,7 +15,7 @@ class Product extends Model
 
     public $table = 'products';
 
-    public $fillable = ['id','admin_id','thumb','name','slug','content','status','category_id','views','created_at','description'];
+    public $fillable = ['id','admin_id','thumb','name','slug','content','status','category_id','views','created_at','description','large'];
 
     public function Category(){
         return $this->hasOne(Category::class,'id','category_id');
@@ -38,6 +38,10 @@ class Product extends Model
     public function details()
     {
         return $this->hasMany(ProductDetail::class,'product_id');
+    }
+
+    public function images(){
+        return $this->hasMany(ProductImage::class,'product_id');
     }
 
     public function getListForFront($orderBy = true,$filter = [],$limit = self::PAGE_ITEM_FRONT){
