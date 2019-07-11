@@ -31,6 +31,8 @@ class FrontController extends BaseController
 
     public function index(){
         $data['menu'] = 'home';
+        $data['categoryProductHot'] = Category::getParentCategory('product',true,true);
+        $data['categoryPostHot'] = Category::getParentCategory('post',true,true);
         $data['products'] = $this->Product->getListForFront();
         $data['posts'] = $this->Post->getListForFront();
         $data['home'] = true;
@@ -43,6 +45,7 @@ class FrontController extends BaseController
         if($slug != null){
             $cate= $this->Category->where('slug',$slug)->first();
             if($cate){
+                $this->renderSeo($cate);
                 $data['cate'] = $cate;
                 $filter['category_id'] = $cate->id;
             }else{

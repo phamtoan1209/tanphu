@@ -66,10 +66,11 @@ class PostController extends BaseController
             'name' => 'required|unique:'.$this->lastPrefix. ($id ? ",id,$id" : ''),
             'category_id' => 'required',
         ]);
-        $data = $request->only('name','content','category_id','admin_id','description');
+        $data = $request->only('name','content','category_id','admin_id','description','large','title_seo','description_seo','keyword_seo');
         if($request->hasFile('thumb')){
             $file = $request->file('thumb');
-            $data['thumb'] = $this->uploadFile($file,$this->pathUpload);
+            $data['large'] = $this->uploadFile($file,$this->pathUpload,true, 400,400);
+            $data['thumb'] = $this->getUrlImgThumb($data['large'],$this->pathUpload);
         }
         $data['status'] = 0;
         if($request->has('status')){

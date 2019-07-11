@@ -20,6 +20,7 @@
                     <i class="fa fa-dashboard"></i> <span>Trang chủ</span>
                 </a>
             </li>
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_categorys',$roleCurrentAdmin))
                 <li class="treeview item-menu-categorys">
                     <a href="#">
@@ -35,6 +36,7 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_products',$roleCurrentAdmin))
                 <li class="treeview item-menu-products">
                     <a href="#">
@@ -50,6 +52,7 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_posts',$roleCurrentAdmin))
                 <li class="treeview item-menu-posts">
                     <a href="#">
@@ -65,8 +68,9 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_supports',$roleCurrentAdmin))
-                <li class="treeview item-menu-supports">
+                <li class="treeview item-menu-supports hidden">
                     <a href="#">
                         <i class="fa fa-user"></i>
                         <span>Quản lý người hỗ trợ</span>
@@ -80,8 +84,9 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_stores',$roleCurrentAdmin))
-                <li class="treeview item-menu-stores">
+                <li class="treeview item-menu-stores hidden">
                     <a href="#">
                         <i class="fa fa-map-marker"></i>
                         <span>Quản lý cửa hàng</span>
@@ -95,6 +100,7 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_websites',$roleCurrentAdmin))
                 <li class="treeview item-menu-websites">
                     <a href="#">
@@ -109,6 +115,7 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_intros',$roleCurrentAdmin))
                 <li class="treeview item-menu-intros">
                     <a href="#">
@@ -139,6 +146,7 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_slides',$roleCurrentAdmin))
                 <li class="treeview item-menu-admin">
                     <a href="#">
@@ -154,6 +162,7 @@
                     </ul>
                 </li>
             @endif
+
             @if(in_array('superadmin',$roleCurrentAdmin) && isset($show))
                 <li class="treeview item-menu-role">
                     <a href="#">
@@ -169,6 +178,7 @@
                     </ul>
                 </li>
             @endif
+
             @if((in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_contacts',$roleCurrentAdmin)) && isset($show))
                 <li class="treeview item-menu-contacts">
                     <a href="#">

@@ -19,15 +19,24 @@
                         <div>
                             <form action="{{route($actionList)}}" method="get" class="form-delete">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <input type="text" name="name" class="form-control" value="{{ isset($filter['name']) ? $filter['name'] : '' }}" placeholder="Tên danh mục ...">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <select name="type" id="type" class="form-control">
                                                 <option value=""> -- Chọn danh mục --</option>
                                                 <option value="{{$typeProduct}}" {{ (isset($filter['type']) && (int)$filter['type'] == $typeProduct ) ? 'selected="selected"' : '' }}>Danh mục sản phẩm</option>
                                                 <option value="{{$typePost}}"  {{ (isset($filter['type']) && (int)$filter['type'] == $typePost ) ? 'selected="selected"' : '' }}>Danh mục tin tức</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select name="hot" id="type" class="form-control">
+                                                <option value=""> -- Trạng thái nổi bật --</option>
+                                                <option value="{{$hot}}" {{ (isset($filter['type']) && (int)$filter['hot'] == $hot ) ? 'selected="selected"' : '' }}>YES</option>
+                                                <option value="{{$hot-1}}"  {{ (isset($filter['type']) && (int)$filter['hot'] == 0 ) ? 'selected="selected"' : '' }}>NO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -48,6 +57,7 @@
                                     <th>Ảnh</th>
                                     <th>Tên danh mục</th>
                                     <th>Thể loại</th>
+                                    <th>Nổi bật</th>
                                     <th>Hành động</th>
                                 </tr>
                                 </thead>
@@ -62,11 +72,12 @@
                                         </td>
                                         <td>{{$item->name}}</td>
                                         <td>
-                                            @if($item->type == $typePost)
-                                                Tin tức
-                                            @else
-                                                Sản phẩm
-                                            @endif
+                                            {{$item->type == $typePost ? 'Tin tức' : 'Sản phẩm'}}
+                                        </td>
+                                        <td>
+                                            <label class="label label-{{$item->hot == $hot ? 'success' : 'default'}}">
+                                                {{$item->hot == $hot ? 'YES' : 'NO'}}
+                                            </label>
                                         </td>
                                         <td>
                                             <div class="rơw">

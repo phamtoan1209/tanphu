@@ -1,5 +1,8 @@
 <?php
 
+use App\Model\Slide;
+use App\Model\Information;
+use App\Model\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,16 +26,22 @@ Route::get('/san-pham/danh-muc/{slug}', 'Front\FrontController@allProduct')->nam
 Route::get('/san-pham/{slug}', 'Front\FrontController@detailProduct')->name('detailProduct');
 
 // post page
-Route::get('/thi-cong', 'Front\FrontController@allPost')->name('allPost');
-Route::get('/thi-cong/danh-muc/{slug}', 'Front\FrontController@allPost')->name('allCategoryPost');
-Route::get('/thi-cong/{slug}', 'Front\FrontController@detailPost')->name('detailPost');
+Route::get('/tin-tuc', 'Front\FrontController@allPost')->name('allPost');
+Route::get('/tin-tuc/danh-muc/{slug}', 'Front\FrontController@allPost')->name('allCategoryPost');
+Route::get('/tin-tuc/{slug}', 'Front\FrontController@detailPost')->name('detailPost');
 
 Route::post('/add-contact', 'Front\FrontController@addContact')->name('addContact');
 
 Auth::routes();
 
-
 Route::any('/admin/login','Admin\AuthController@login')->name('adminLogin');
+
+View::share([
+    'slides' => Slide::getSlideHome(),
+    'categorys' => Category::getTreeCategoryHome('product'),
+    'website' => Information::getInfor(),
+    'categoryPostHot' => Category::getParentCategory('post',true,true),
+]);
 
 Route::group(['prefix'=>'admin', 'middleware'=>'admin'],function (){
     Route::get('/','Admin\AdminController@index')->name('admin');

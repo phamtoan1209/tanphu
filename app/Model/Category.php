@@ -8,11 +8,13 @@ class Category extends Model
 {
     const TYPE_POST = 1;
     const TYPE_PRODUCT = 0;
+    const UNHOT = 0;
+    const HOT = 1;
     const PAGE_ITEM = 10;
 
     public $table = 'categorys';
 
-    public $fillable = ['name','slug','type','parent_id','description','hot','thumb','large'];
+    public $fillable = ['id','name','slug','type','parent_id','description','hot','thumb','large','title_seo','description_seo','keyword_seo'];
 
     public function getList($filter = [],$limit = self::PAGE_ITEM){
         $query = $this->select(['*']);
@@ -22,17 +24,48 @@ class Category extends Model
         if(isset($filter['type'])){
             $query->where('type',(int)$filter['type']);
         }
+        if(isset($filter['hot'])){
+            $query->where('hot',(int)$filter['hot']);
+        }
         return $query->paginate($limit);
     }
 
-    public static function getParentCategory($type = 'product'){
-        $query = static::select('id','name');
+    public static function getParentCategory($type = 'product',$hot = true,$full = true){
+        $query = static::select(['id','name','slug','description','title_seo','description_seo','keyword_seo','thumb','large'])->where('parent_id',0);
         if($type == 'post'){
             $query->where('type',self::TYPE_POST);
         }else{
             $query->where('type',self::TYPE_PRODUCT);
         }
-        return $query->where('parent_id',0)->pluck('name','id');
+        if($hot){
+            $query->where('hot',self::HOT);
+        }
+        if($full){
+            return $query->get()->toArray();
+        }
+        return $query->pluck('name','id');
+    }
+
+    public static function getTreeCategoryHome($type = 'product'){
+        $data = self::getParentCategory($type,false,true);
+        if(!empty($data)){
+            $data = self::renderTreeCategory($data);
+        }
+        return $data;
+    }
+
+
+    public static function renderTreeCategory($data){
+        $result = [];
+        foreach ($data as $item){
+            $item['childs'] = [];
+            $categorys = static::select(['id','name','slug','description','title_seo','description_seo','keyword_seo','thumb','large'])->where('parent_id',$item['id'])->get()->toArray();
+            if(!empty($categorys)){
+                $item['childs'] = $categorys;
+            }
+            $result[] = $item;
+        }
+        return $result;
     }
 
     public static function getAllCategoryProduct(){

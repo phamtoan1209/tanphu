@@ -56,7 +56,12 @@ class WebsiteController extends BaseController
         if($key == 'logo' || $key == 'favicon'){
             if($request->hasFile('value')){
                 $file = $request->file('value');
-                $data['value'] = $this->uploadFile($file,$this->pathUpload);
+                if($key == 'logo'){
+                    $data['value'] = $this->uploadFile($file,$key);
+                }else{
+                    $data['large'] = $this->uploadFile($file,$key,true,300,300);
+                    $data['value'] = $this->getUrlImgThumb($data['large'],$key);
+                }
             }
         }else{
             $data = $request->only('value');

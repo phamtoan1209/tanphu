@@ -30,6 +30,7 @@ class CategoryController extends BaseController
         view()->share('modul','categorys');
         view()->share('typePost',Category::TYPE_POST);
         view()->share('typeProduct',Category::TYPE_PRODUCT);
+        view()->share('hot',Category::HOT);
     }
 
     /**
@@ -48,8 +49,8 @@ class CategoryController extends BaseController
      */
     public function create(Request $request, $id = null){
         if($request->isMethod('get')){
-            $data['parentPost'] = Category::getParentCategory('post');
-            $data['parentProduct'] = Category::getParentCategory('product');
+            $data['parentPost'] = Category::getParentCategory('post',false,false);
+            $data['parentProduct'] = Category::getParentCategory('product',false,false);
             if($id){
                 $data['item'] = $this->Model->findOrFail($id);
             }
@@ -59,10 +60,10 @@ class CategoryController extends BaseController
             'name' => 'required|unique:'.$this->lastPrefix. ($id ? ",id,$id" : ''),
             'type' => 'required'
         ]);
-        $data = $request->only('name','type','parent_id','description','hot','thumb');
+        $data = $request->only('name','type','parent_id','description','hot','thumb','title_seo','description_seo','keyword_seo');
         if($request->hasFile('thumb')){
             $file = $request->file('thumb');
-            $data['large'] = $this->uploadFile($file,$this->pathUpload,true, 200,200);
+            $data['large'] = $this->uploadFile($file,$this->pathUpload,true, 300,300);
             $data['thumb'] = $this->getUrlImgThumb($data['large'],$this->pathUpload);
         }
         $data['slug'] = str_slug($data['name']);

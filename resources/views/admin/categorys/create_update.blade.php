@@ -60,6 +60,7 @@
                                 {!! Form::select('hot',[0 => 'NO', 1 => 'YES'], isset($item) ? $item->hot : 0 , ['class' => 'form-control']) !!}
                                 {!! $errors->first('hot') ? '<p class="text-danger">'. $errors->first('hot') .'</p>' : ''!!}
                             </div>
+                           {!! \app\Helpers\Widgets::getFormSeo(isset($item) ? $item : null) !!}
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary btn-flat">Xác nhận</button>

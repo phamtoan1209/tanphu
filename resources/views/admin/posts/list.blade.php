@@ -58,7 +58,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Ảnh bài thi công</th>
+                                    <th>Ảnh</th>
                                     <th>Tên</th>
                                     <th>Danh mục</th>
                                     <th>Trạng thái</th>

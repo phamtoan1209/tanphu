@@ -31,7 +31,7 @@ class BaseController extends Controller
                 mkdir($publicPathThumb, 0777, true);
             }
             $nameThumb = $pathThumb.'/'.$name;
-            Image::make(public_path($path).'/'.$name)->resize($width, $height)->save(public_path($nameThumb));
+            Image::make(public_path($path).'/'.$name)->fit($width, $height)->save(public_path($nameThumb));
         }
         return $path.'/'.$name;
     }

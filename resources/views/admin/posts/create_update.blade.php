@@ -53,6 +53,7 @@
                                 {!! Form::textarea('content', old( 'content',isset($item) ? $item->content : ''), ['class' => 'form-control','id'=>'editor1','rows'=>'25','placeholder'=>"Bài viết về sản phẩm"]) !!}
                                 {!! $errors->first('content') ? '<p class="text-danger">'. $errors->first('content') .'</p>' : ''!!}
                             </div>
+                            {!! \app\Helpers\Widgets::getFormSeo(isset($item) ? $item : null) !!}
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary btn-flat">Xác nhận</button>
