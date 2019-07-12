@@ -11,7 +11,7 @@
                         <ul>
                             @foreach($categoryProductHot as $itemCategory)
                                 <li>
-                                    <a href="{{url('danh-muc/'.$itemCategory['slug'])}}">
+                                    <a href="{{url('san-pham/danh-muc/'.$itemCategory['slug'])}}">
                                         <div class="item-image"><img src="{{asset($itemCategory['thumb'])}}" alt="{{$itemCategory['name']}}" class="img-fluid rounded-circle"></div>
                                         <div class="item-title">{{$itemCategory['name']}}</div>
                                     </a>

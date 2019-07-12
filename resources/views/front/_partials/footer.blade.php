@@ -18,8 +18,8 @@
                     <section id="nav_menu-2" class="widget widget_nav_menu"><span class="widget-title">Về chúng tôi</span>
                         <div class="menu-chung-toi-container">
                             <ul id="menu-chung-toi" class="menu">
-                                <li class="menu-item"><a href="#">Giới thiệu</a></li>
-                                <li class="menu-item"><a href="#">Liên hệ</a></li>
+                                <li class="menu-item"><a href="{{route('intro')}}">Giới thiệu</a></li>
+                                <li class="menu-item"><a href="{{route('contact')}}">Liên hệ</a></li>
                             </ul>
                         </div>
                     </section>
