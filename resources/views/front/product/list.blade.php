@@ -1,6 +1,6 @@
 @extends('front._partials.master')
 @section('content')
-    @include('front._partials._breadcumb')
+    {!! \app\Helpers\Widgets::renderBreadcumb($cate,'product') !!}
     {!! \app\Helpers\Widgets::renderNavTab($categoryProduct,$cate) !!}
     <main>
         <div class="product-list">

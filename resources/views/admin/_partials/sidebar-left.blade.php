@@ -179,7 +179,7 @@
                 </li>
             @endif
 
-            @if((in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_contacts',$roleCurrentAdmin)) && isset($show))
+            @if((in_array('superadmin',$roleCurrentAdmin) || in_array('can_manage_contacts',$roleCurrentAdmin)))
                 <li class="treeview item-menu-contacts">
                     <a href="#">
                         <i class="fa fa-file-image-o "></i>

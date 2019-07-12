@@ -39,16 +39,15 @@ class FrontController extends BaseController
     public function allProduct(Request $request,$slug = null){
         $data['menu'] = 'product';
         $filter = $request->all();
+        $cate = null;
         if($slug != null){
             $cate = $this->Category->with('parent')->where('slug',$slug)->first();
             if($cate){
                 $this->renderSeo($cate);
-                $data['cate'] = $cate;
                 $filter['category_id'] = Category::getAllIdsRelation($cate->id);
-            }else{
-                return view('errors.404');
             }
         }
+        $data['cate'] = $cate;
         $data['filter'] = $filter;
         $data['flagLinks'] = 1;
         $data['products'] = $this->Product->getListForFront(true,$filter,16);
@@ -74,16 +73,15 @@ class FrontController extends BaseController
     public function allPost(Request $request,$slug = null){
         $data['menu'] = 'post';
         $filter = $request->all();
+        $cate = null;
         if($slug != null){
             $cate = $this->Category->where('slug',$slug)->first();
             if($cate){
                 $this->renderSeo($cate);
-                $data['cate'] = $cate;
                 $filter['category_id'] = $cate->id;
-            }else{
-                return view('errors.404');
             }
         }
+        $data['cate'] = $cate;
         $data['filter'] = $filter;
         $data['posts'] = $this->Post->getListForFront(true,$filter,18);
         $data['categoryPost'] = Category::getTreeCategoryHome('post');
@@ -119,10 +117,10 @@ class FrontController extends BaseController
         ]);
         $contact = new Contact($request->only('name','phone','email','content'));
         $contact->save();
-        // $account_mail = Information::where('key','account_mail')->first();
-        // Mail::send('front.mail.email', array('name'=>$contact->name,'phone' => $contact->phone,'email'=>$contact->email, 'content'=>$contact->content), function($message) use ($account_mail){
-        //     $message->to($account_mail->value, 'Quản trị')->subject('Người dùng liên hệ!');
-        // });
+         $account_mail = Information::where('key','account_mail')->first();
+         Mail::send('front.mail.email', array('name'=>$contact->name,'phone' => $contact->phone,'email'=>$contact->email, 'content'=>$contact->content), function($message) use ($account_mail){
+             $message->to($account_mail->value, 'Quản trị')->subject('Người dùng liên hệ!');
+         });
 
         return redirect()->back()->with([
             'alert_message' => Config::get('constants.CONTACT_SUCCESS'),

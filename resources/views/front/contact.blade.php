@@ -24,7 +24,7 @@
                 </div>
                 <div class="row form-contact py-5">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ctinfo-left">
-                        <div id="ct-des"><strong>QUYÊN NGUYỄN BRIDAL</strong><br><br> Chúng tôi luôn trân trọng những góp ý &amp; luôn sẵn sàng phản hồi những câu hỏi của bạn trong thời gian sớm nhất.</div>
+                        <div id="ct-des"><strong>{{\Illuminate\Support\Facades\Config::get('webinfos.NAME')}}</strong><br><br> Chúng tôi luôn trân trọng những góp ý &amp; luôn sẵn sàng phản hồi những câu hỏi của bạn trong thời gian sớm nhất.</div>
                         <ul>
                             <li><i class="fa fa-map-marker" aria-hidden="true"></i>{{isset($website['address']) ? $website['address'] : ''}}</li>
                             <li><i class="fa fa-envelope" aria-hidden="true"></i>{{isset($website['email']) ? $website['email'] : ''}}</li>
@@ -32,18 +32,19 @@
                         </ul>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12 ctinfo-right">
-                        <form>
+                        <form method="POST" action="{{route('addContact')}}">
+                            @csrf
                             <div class="form-group">
-                                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Tên của bạn">
+                                <input type="text" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Tên của bạn">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Email của bạn">
+                                <input type="text" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email của bạn">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Số điện thoại">
+                                <input type="text" name="phone" class="form-control" aria-describedby="emailHelp" placeholder="Số điện thoại">
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" rows="3" placeholder="Nhập lời nhắn"></textarea>
+                                <textarea name="content" class="form-control" rows="3" placeholder="Nhập lời nhắn"></textarea>
                             </div>
                             <button type="submit" class="btn btn-dark">Gửi đi</button>
                         </form>

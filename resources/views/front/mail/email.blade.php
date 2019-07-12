@@ -15,4 +15,4 @@
     </tr>
     </tbody>
 </table>
-Tin nhắn này là tin nhắn hệ thống của website <b><a href="http://setuphouse.vn">http://setuphouse.vn</a></b>. Vui lòng không trả lời lại thư này.
+Tin nhắn này là tin nhắn hệ thống của website <b><a href="{{\Illuminate\Support\Facades\Config::get('webinfos.DOMAIN')}}">{{\Illuminate\Support\Facades\Config::get('webinfos.DOMAIN')}}</a></b>. Vui lòng không trả lời lại thư này.

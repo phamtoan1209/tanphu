@@ -23,4 +23,8 @@ class Widgets {
     public static function renderNavTab($data = null,$cate = null){
         return view('widgets._nav_tab',['categorys' => $data,'cate' => $cate]);
     }
+
+    public static function renderBreadcumb($cate = null,$type = 'product'){
+        return view('widgets._breadcumb',['cate' => $cate,'type' => $type]);
+    }
 }

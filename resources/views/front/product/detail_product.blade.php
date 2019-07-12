@@ -12,7 +12,7 @@
                         <p></p>
                         <p id="breadcrumbs">
                             <span><a href="{{route('home')}}">Trang chủ</a> </span>
-                            / <span><a href="{{route('allProduct')}}">Sản phẩm</a></span>
+                            / <span><a href="{{url('san-pham/danh-muc/'.$product->category->slug)}}">{{$product->category->name}}</a></span>
                             / <span class="breadcrumb_last" aria-current="page">{{$product->name}}</span>
                         </p>
                         <p></p>

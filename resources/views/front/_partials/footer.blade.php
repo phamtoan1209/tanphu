@@ -55,7 +55,7 @@
                     <section id="text-4" class="widget widget_text">
                         <div class="textwidget">
                             <div role="form">
-                                <a href="lien-he"><input type="submit" value="Gửi ý kiến" class="form-submit"></a>
+                                <a href="{{route('contact')}}"><input type="submit" value="Gửi ý kiến" class="form-submit"></a>
                             </div>
                         </div>
                     </section>

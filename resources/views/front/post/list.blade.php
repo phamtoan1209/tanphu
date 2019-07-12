@@ -1,6 +1,6 @@
 @extends('front._partials.master')
 @section('content')
-    @include('front._partials._breadcumb')
+    {!! \app\Helpers\Widgets::renderBreadcumb($cate,'post') !!}
     {!! \app\Helpers\Widgets::renderNavTab($categoryPost,$cate) !!}
     <main>
         <div class="product-list">
@@ -20,15 +20,15 @@
                         <div class="sort-product">
                             <p class="font-weight-bold">Danh mục tin tức</p>
                             <ul>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
-                                <li><a href="#"><i class="fa fa-venus" aria-hidden="true"></i> Alice in Wonderland</a></li>
+                                @if(isset($categoryPost) && !empty($categoryPost))
+                                    @foreach($categoryPost as $item)
+                                        <li class="active">
+                                            <a href="{{url('tin-tuc/danh-muc/'.$item['slug'])}}">
+                                                <i class="fa fa-newspaper-o" aria-hidden="true"></i> {{$item['name']}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
