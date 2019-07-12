@@ -16,6 +16,8 @@ class Category extends Model
 
     public $fillable = ['id','name','slug','type','parent_id','description','hot','thumb','large','title_seo','description_seo','keyword_seo'];
 
+    public static $selectArr = ['id','name','slug','type','parent_id','description','hot','thumb','large','title_seo','description_seo','keyword_seo'];
+
     public function getList($filter = [],$limit = self::PAGE_ITEM){
         $query = $this->select(['*']);
         if(isset($filter['name']) && $filter['name'] != ''){
@@ -30,8 +32,12 @@ class Category extends Model
         return $query->paginate($limit);
     }
 
+    public function parent(){
+        return $this->belongsTo('App\Model\Category','parent_id','id');
+    }
+
     public static function getParentCategory($type = 'product',$hot = true,$full = true){
-        $query = static::select(['id','name','slug','description','title_seo','description_seo','keyword_seo','thumb','large'])->where('parent_id',0);
+        $query = static::select(self::$selectArr)->where('parent_id',0);
         if($type == 'post'){
             $query->where('type',self::TYPE_POST);
         }else{
@@ -59,7 +65,7 @@ class Category extends Model
         $result = [];
         foreach ($data as $item){
             $item['childs'] = [];
-            $categorys = static::select(['id','name','slug','description','title_seo','description_seo','keyword_seo','thumb','large'])->where('parent_id',$item['id'])->get()->toArray();
+            $categorys = static::select(self::$selectArr)->where('parent_id',$item['id'])->get()->toArray();
             if(!empty($categorys)){
                 $item['childs'] = $categorys;
             }
@@ -74,5 +80,11 @@ class Category extends Model
 
     public static function getAllCategoryPost(){
         return static::select('id','name')->where('type',self::TYPE_POST)->pluck('name','id');
+    }
+
+    public static function getAllIdsRelation($id){
+        $arr = [$id];
+        $childs = self::select('id')->where('parent_id',$id)->get()->pluck('id')->toArray();
+        return array_merge($arr,$childs);
     }
 }

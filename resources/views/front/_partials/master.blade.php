@@ -32,8 +32,8 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('front/js/jquery-1.11.1.min.js')}}"></script>
+    <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('front/js/slick.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function() {

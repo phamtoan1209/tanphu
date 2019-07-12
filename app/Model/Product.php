@@ -17,7 +17,7 @@ class Product extends Model
 
     public $fillable = ['id','admin_id','thumb','name','slug','content','status','category_id','views','created_at','description','large','title_seo','description_seo','keyword_seo'];
 
-    public function Category(){
+    public function category(){
         return $this->hasOne(Category::class,'id','category_id');
     }
 
@@ -30,7 +30,11 @@ class Product extends Model
             $query->where('status',(int)$filter['status']);
         }
         if(isset($filter['category_id'])){
-            $query->where('category_id',(int)$filter['category_id']);
+            if(is_array($filter['category_id'])){
+                $query->whereIn('category_id',$filter['category_id']);
+            }else{
+                $query->where('category_id',$filter['category_id']);
+            }
         }
         return $query->orderBy('id','DESC')->paginate($limit);
     }
@@ -50,7 +54,11 @@ class Product extends Model
             $query->where('name','like','%'.$filter['name'].'%');
         }
         if(isset($filter['category_id']) && $filter['category_id'] != ''){
-            $query->where('category_id',$filter['category_id']);
+            if(is_array($filter['category_id'])){
+                $query->whereIn('category_id',$filter['category_id']);
+            }else{
+                $query->where('category_id',$filter['category_id']);
+            }
         }
         if($orderBy){
             $query->orderBy('id','DESC');

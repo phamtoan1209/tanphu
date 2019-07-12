@@ -43,20 +43,19 @@ class FrontController extends BaseController
         $data['menu'] = 'product';
         $filter = $request->all();
         if($slug != null){
-            $cate= $this->Category->where('slug',$slug)->first();
+            $cate = $this->Category->with('parent')->where('slug',$slug)->first();
             if($cate){
                 $this->renderSeo($cate);
                 $data['cate'] = $cate;
-                $filter['category_id'] = $cate->id;
+                $filter['category_id'] = Category::getAllIdsRelation($cate->id);
             }else{
                 return view('errors.404');
             }
         }
         $data['filter'] = $filter;
         $data['flagLinks'] = 1;
-        $data['products'] = $this->Product->getListForFront(true,$filter,18);
-        $data['categorys'] = $this->Category->where('type',Category::TYPE_PRODUCT)->get();
-        return view('front.list',$data);
+        $data['products'] = $this->Product->getListForFront(true,$filter,16);
+        return view('front.product.list',$data);
     }
 
     public function detailProduct(Request $request,$slug){
@@ -71,7 +70,7 @@ class FrontController extends BaseController
         }else{
             return view('errors.404');
         }
-        return view('front.detail_product',$data);
+        return view('front.product.detail_product',$data);
     }
 
     public function allPost(Request $request,$slug = null){
@@ -89,7 +88,7 @@ class FrontController extends BaseController
         $data['filter'] = $filter;
         $data['posts'] = $this->Post->getListForFront(true,$filter,18);
         $data['categorys'] = $this->Category->where('type',Category::TYPE_POST)->get();
-        return view('front.list',$data);
+        return view('front.post.list',$data);
     }
 
     public function detailPost(Request $request,$slug){
@@ -103,7 +102,7 @@ class FrontController extends BaseController
         }else{
             return view('errors.404');
         }
-        return view('front.detail_post',$data);
+        return view('front.post.detail_post',$data);
     }
 
     public function contact(Request $request){
