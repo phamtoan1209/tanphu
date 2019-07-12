@@ -67,6 +67,7 @@ class Product extends Model
     }
 
     public static function getProductSame($id,$categoryId){
-        return static::where('id','<>',$id)->where('status',self::STATUS_ON)->where('category_id',$categoryId)->orderBy('id','DESC')->take(4)->get();
+        $arrCate = Category::getAllIdsRelation($categoryId);
+        return static::where('id','<>',$id)->where('status',self::STATUS_ON)->whereIn('category_id',$arrCate)->orderBy('id','DESC')->take(4)->get();
     }
 }

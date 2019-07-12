@@ -13,6 +13,8 @@
         <link href="{{asset('front/css/main.css')}}" rel="stylesheet">
         <link href="{{asset('front/css/slick.css')}}" rel="stylesheet">
         <link href="{{asset('front/css/slick-theme.css')}}" rel="stylesheet">
+        <link href="{{asset('front/css/ninja-slider.css')}}" rel="stylesheet" />
+        <link href="{{asset('front/css/thumbnail-slider.css')}}" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap&subset=vietnamese" rel="stylesheet">
         @yield('css')
     </head>
@@ -35,6 +37,8 @@
     <script src="{{asset('front/js/jquery-1.11.1.min.js')}}"></script>
     <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('front/js/slick.js')}}"></script>
+    <script src="{{asset('front/js/ninja-slider.js')}}"></script>
+    <script src="{{asset('front/js/thumbnail-slider.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $("#respMenu").aceResponsiveMenu({

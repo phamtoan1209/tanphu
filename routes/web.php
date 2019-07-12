@@ -38,7 +38,7 @@ Route::any('/admin/login','Admin\AuthController@login')->name('adminLogin');
 
 View::share([
     'slides' => Slide::getSlideHome(),
-    'categorys' => Category::getTreeCategoryHome('product'),
+    'categorys' => Category::getTreeCategoryHome('product',true),
     'website' => Information::getInfor(),
     'categoryPostHot' => Category::getParentCategory('post',true,true),
 ]);

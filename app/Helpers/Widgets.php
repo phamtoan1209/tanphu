@@ -11,4 +11,16 @@ class Widgets {
     public static function htmlSeo(){
         return view('widgets.html_seo');
     }
+
+    public static function renderItemProduct($data = null){
+        return view('widgets._item_product',['products' => $data]);
+    }
+
+    public static function renderItemPost($data = null){
+        return view('widgets._item_post',['posts' => $data]);
+    }
+
+    public static function renderNavTab($data = null,$cate = null){
+        return view('widgets._nav_tab',['categorys' => $data,'cate' => $cate]);
+    }
 }

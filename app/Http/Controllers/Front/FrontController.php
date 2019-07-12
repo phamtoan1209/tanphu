@@ -32,9 +32,6 @@ class FrontController extends BaseController
     public function index(){
         $data['menu'] = 'home';
         $data['categoryProductHot'] = Category::getParentCategory('product',true,true);
-        $data['categoryPostHot'] = Category::getParentCategory('post',true,true);
-        $data['products'] = $this->Product->getListForFront();
-        $data['posts'] = $this->Post->getListForFront();
         $data['home'] = true;
         return view('front.index',$data);
     }
@@ -55,22 +52,23 @@ class FrontController extends BaseController
         $data['filter'] = $filter;
         $data['flagLinks'] = 1;
         $data['products'] = $this->Product->getListForFront(true,$filter,16);
+        $data['categoryProduct'] = Category::getTreeCategoryHome('product');
         return view('front.product.list',$data);
     }
 
     public function detailProduct(Request $request,$slug){
         $data['menu'] = 'product';
         $data = [];
-        $product = $this->Product->where('slug',$slug)->with('details')->with('category')->first();
+        $product = $this->Product->where('slug',$slug)->where('status',Product::STATUS_ON)->with(['category','details','images'])->first();
         if($product){
+            $this->renderSeo($product);
             $product->views = $product->views + 1;
             $product->save();
             $data['product'] = $product;
             $data['products'] = Product::getProductSame($product->id,$product->category_id);
-        }else{
-            return view('errors.404');
+            return view('front.product.detail_product',$data);
         }
-        return view('front.product.detail_product',$data);
+        return view('errors.404');
     }
 
     public function allPost(Request $request,$slug = null){
@@ -79,6 +77,7 @@ class FrontController extends BaseController
         if($slug != null){
             $cate = $this->Category->where('slug',$slug)->first();
             if($cate){
+                $this->renderSeo($cate);
                 $data['cate'] = $cate;
                 $filter['category_id'] = $cate->id;
             }else{
@@ -87,7 +86,7 @@ class FrontController extends BaseController
         }
         $data['filter'] = $filter;
         $data['posts'] = $this->Post->getListForFront(true,$filter,18);
-        $data['categorys'] = $this->Category->where('type',Category::TYPE_POST)->get();
+        $data['categoryPost'] = Category::getTreeCategoryHome('post');
         return view('front.post.list',$data);
     }
 
@@ -95,14 +94,14 @@ class FrontController extends BaseController
         $data['menu'] = 'post';
         $post = $this->Post->where('slug',$slug)->with('category')->first();
         if($post){
+            $this->renderSeo($post);
             $post->views = $post->views + 1;
             $post->save();
             $data['post'] = $post;
             $data['posts'] = Post::getPostSame($post->id,$post->category_id);
-        }else{
-            return view('errors.404');
+            return view('front.post.detail_post',$data);
         }
-        return view('front.post.detail_post',$data);
+        return view('errors.404');
     }
 
     public function contact(Request $request){

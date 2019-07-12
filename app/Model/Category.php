@@ -52,8 +52,8 @@ class Category extends Model
         return $query->pluck('name','id');
     }
 
-    public static function getTreeCategoryHome($type = 'product'){
-        $data = self::getParentCategory($type,false,true);
+    public static function getTreeCategoryHome($type = 'product',$hot = false){
+        $data = self::getParentCategory($type,$hot,true);
         if(!empty($data)){
             $data = self::renderTreeCategory($data);
         }

@@ -1,7 +1,7 @@
 <?php 
 use App\Model\Category;
-$name = $cate->type == Category::TYPE_POST ? 'Tin tức' : 'Sản phẩm';
-$prefix = $cate->type == Category::TYPE_POST ? 'tin-tuc' : 'san-pham';
+$name = isset($cate) && $cate->type == Category::TYPE_POST ? 'Tin tức' : 'Sản phẩm';
+$prefix = isset($cate) && $cate->type == Category::TYPE_POST ? 'tin-tuc' : 'san-pham';
 ?>
 <section class="form-group">
     <div class="banner-shop" style="background: url('https://quyennguyen.vn/wp-content/uploads/2018/08/quyennguyen-1.jpg');height: 220px;">

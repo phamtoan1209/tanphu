@@ -35,14 +35,32 @@
                                 </select>
                                 {!! $errors->first('type') ? '<p class="text-danger">'. $errors->first('type') .'</p>' : ''!!}
                             </div>
-                            <div class="form-group parent parent-post <?=isset($item) && $item->type != $typePost ? 'hidden' : '' ?>">
+                            <div class="form-group parent parent-post @if(isset($item) && $item->type != $typePost) hidden @endif">
                                 <label>Danh mục cha</label>
-                                {!! Form::select('parent_id',$parentPost, isset($item) ? $item->parent_id : 0 , ['class' => 'form-control','placeholder' => '-- Là danh mục cha --']) !!}
+                                {!! Form::select(
+                                    'parent_id',
+                                    $parentPost,
+                                     isset($item) ? $item->parent_id : 0 ,
+                                    [
+                                        'class' => 'form-control',
+                                        'placeholder' => '-- Là danh mục cha --',
+                                        'disabled' => isset($item) && $item->type == $typePost ? false : true
+                                    ]
+                                ) !!}
                                 {!! $errors->first('parent_id') ? '<p class="text-danger">'. $errors->first('parent_id') .'</p>' : ''!!}
                             </div>
-                            <div class="form-group parent parent-product <?=isset($item) && $item->type != $typeProduct ? 'hidden' : '' ?>">
+                            <div class="form-group parent parent-product @if(isset($item) && $item->type != $typeProduct) hidden @endif">
                                 <label>Danh mục cha</label>
-                                {!! Form::select('parent_id',$parentProduct, isset($item) ? $item->parent_id : 0 , ['class' => 'form-control','placeholder' => '-- Là danh mục cha --']) !!}
+                                {!! Form::select(
+                                    'parent_id',
+                                    $parentProduct,
+                                    isset($item) ? $item->parent_id : 0 ,
+                                    [
+                                        'class' => 'form-control',
+                                        'placeholder' => '-- Là danh mục cha --',
+                                        'disabled' => isset($item) && $item->type == $typeProduct ? false : true
+                                    ]
+                                ) !!}
                                 {!! $errors->first('parent_id') ? '<p class="text-danger">'. $errors->first('parent_id') .'</p>' : ''!!}
                             </div>
                             <div class="form-group">
@@ -87,14 +105,17 @@
             @endif
             $('select[name="type"]').on('change',function () {
                 let type = $(this).val();
-                $('.parent').removeClass('hidden').hide();
-                $('.parent').attr('disabled','disabled');
+                $('.parent').hide();
                 if(type == 1){
-                    $('.parent-post').removeAttr('disabled');
-                    $('.parent-post').show();
+                    $('.parent-post').removeClass('hidden').show();
+                    $('.parent-post').fadeIn();
+                    $('.parent-post').find('select').removeAttr('disabled');
+                    $('.parent-product').find('select').attr('disabled','disabled');
                 }else{
-                    $('.parent-product').removeAttr('disabled');
-                    $('.parent-product').show();
+                    $('.parent-product').removeClass('hidden').show();
+                    $('.parent-product').fadeIn();
+                    $('.parent-product').find('select').removeAttr('disabled');
+                    $('.parent-post').find('select').attr('disabled','disabled');
                 }
             });
         });
