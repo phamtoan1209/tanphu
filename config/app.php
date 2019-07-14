@@ -162,6 +162,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\WidgetProvider::class,
+        App\Providers\HelperProvider::class,
     ],
 
     /*
@@ -214,6 +215,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Widgets' => App\Helpers\Widgets::class,
+        'Helper' => App\Helpers\Helper::class,
 
     ],
 

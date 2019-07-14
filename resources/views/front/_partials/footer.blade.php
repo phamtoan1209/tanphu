@@ -63,9 +63,4 @@
             </div>
         </div>
     </div>
-    <div class="site-info">
-        <div class="container">
-            <p> © <a href="https://quyennguyen.vn">Quyên Nguyễn Bridal </a>2018. All Rights Reserved</p>
-        </div>
-    </div>
 </footer>

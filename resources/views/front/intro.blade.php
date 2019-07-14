@@ -1,6 +1,14 @@
 @extends('front._partials.master')
 @section('title','Về chúng tôi')
 @section('content')
+    @if(\app\Helpers\Helper::checkMobile())
+        <style>
+            .about-container .container img {
+                width: 100% !important;
+                height: auto !important;
+            }
+        </style>
+    @endif
     <section>
         <div class="page-title py-5"><h1>Giới thiệu về Quyên Nguyễn</h1></div>
         <div class="breadcrumbs-yoat py-5">

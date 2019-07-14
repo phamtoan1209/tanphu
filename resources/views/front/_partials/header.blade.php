@@ -2,7 +2,9 @@
     <div class="container">
         <div class="row site-branding">
             <div class="col-lg-4 col-md-4 col-sm-12 col-12 site-logo">
-                <h1><a href="{{route('home')}}" rel="home"><img class="img-fluid" src="{{asset(isset($website['logo']) ? $website['logo'] : '')}}" alt="Bridal"></a></h1>
+                <h1><a href="{{route('home')}}" rel="home">
+                        <img style="width: 160px;height: 90px;" class="img-fluid" src="{{asset(isset($website['logo']) ? $website['logo'] : '')}}" alt="Bridal">
+                    </a></h1>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-12 info-header">
                 <ul>
