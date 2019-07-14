@@ -29,7 +29,7 @@
                                 {!! $errors->first('category_id') ? '<p class="text-danger">'. $errors->first('category_id') .'</p>' : ''!!}
                             </div>
                             <div class="form-group">
-                                <label>Tên bài thi công</label>
+                                <label>Tên bài tin</label>
                                 {!! Form::text('name', old( 'name',isset($item) ? $item->name : ''), ['class' => 'form-control','placeholder'=>"Tên bài thi công"]) !!}
                                 {!! $errors->first('name') ? '<p class="text-danger">'. $errors->first('name') .'</p>' : ''!!}
                             </div>

@@ -1,6 +1,6 @@
 @foreach($products as $product)
     <a class="product-container" href="{{url('san-pham/'.$product->slug)}}">
-        <img class="img-fluid" src="{{asset($product->thumb)}}" alt="{{asset($product->name)}}">
+        <img class="img-fluid" data-src="{{asset($product->thumb)}}" alt="{{asset($product->name)}}">
         <div class="des-pro">
             <p>{{$product->name}}</p>
             <span>{{\Illuminate\Support\Str::words($product->description, 5)}}</span>

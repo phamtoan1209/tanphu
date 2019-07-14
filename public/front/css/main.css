@@ -183,7 +183,7 @@ ul[data-menu-style="vertical"] li a:hover {    background: #272727 !important;}
 .feature-1 .products img, .feature-3 .products img, .feature-5 .products img, .feature-7 .products img, .feature-9 .products img {    width: 170px;}
 .products img {     box-shadow: 12px 14px 10px #e4e4e4;}
 .feature-text {    font-size: 1.2vw;    letter-spacing: .5px;    line-height: 2vw;    opacity: 0;    margin: 0;    padding: 0;    position: absolute;    top: 0;    left: 0;    right: 0;    bottom: 0;    background-color: #7b7b7b;    color: #fff;
-    box-shadow: 5px 8px 8px #eae6e5;    display: -ms-flexbox;    display: flex;    -ms-flex-direction: column;    flex-direction: column;    height: 200px;    -ms-flex-pack: center;    justify-content: center;    font-size: 14px;}
+    box-shadow: 5px 8px 8px #eae6e5;    display: -ms-flexbox;    display: flex;    -ms-flex-direction: column;    flex-direction: column;    height: 100%;    -ms-flex-pack: center;    justify-content: center;    font-size: 14px;}
 .feature-text2 { height: 220px; }
 .feature-artwork {    font-style: italic; }
 a.products:hover .feature-text {    opacity: .9;    line-height: 1.2vw; text-align: center;}

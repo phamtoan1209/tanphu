@@ -1,86 +1,81 @@
 @extends('front._partials.master')
-@section('title',$post->name)
 @section('content')
-<style>
-    .flat{
-        border-radius: 0px;
-    }
-    .product-page-tab-content,.content-post{
-        text-align: justify;
-    }
-    .product-page-tab-content p img, p img{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
-<div class="container" style="margin-top: 20px;">
-    <div class="row">
-        <div class="col-md-12">
-            <a href="{{route('home')}}"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a> <i class="fa fa-angle-double-right"></i>
-            <a href="{{route('allProduct')}}">Thi công</a> <i class="fa fa-angle-double-right"></i> <b>{{$post->name}}</b>
-            <br><br>
+    <style>
+        .about-container img {
+            width: 100%;
+        }
+    </style>
+    <section>
+        <div class="page-title py-5">
+            <h1>{{$post->name}}</h1>
         </div>
-
-        <div class="product-main-area">
+        <div class="breadcrumbs-yoat py-5 form-group">
+            <div class="container">
+                <div class="breadcrumbs-yoat">
+                    <div class="container">
+                        <p></p>
+                        <p id="breadcrumbs">
+                            <span><a href="{{route('home')}}">Trang chủ</a> </span>
+                            / <span><a href="{{url('tin-tuc/danh-muc/'.$post->category->slug)}}">{{$post->category->name}}</a></span>
+                            / <span class="breadcrumb_last" aria-current="page">{{$post->name}}</span>
+                        </p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <main>
+        <div class="product-list">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div>
-                            <h1 class="pull-left">{{$post->name}}</h1>
-                            <span class="pull-right">
-                                <div class="fb-share-button" data-href="{{route('detailPost',['slug' => $post->slug])}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{route('detailPost',['slug' => $post->slug])}}" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
-                            </span>
-                        </div>
-                        <div style="clear: both;padding-top: 15px;">
-                            <span class="recent-post-date pull-left">Ngày tạo: {{date('d-m-Y',strtotime($post->created_at))}}</span>
-                            <span class="pull-right"><i class="fa fa-heart" aria-hidden="true" style="color: deeppink;"></i> {{$post->views}} lượt xem <i class="fa fa-eye" aria-hidden="true" style="color: deepskyblue;"></i></span>
-                        </div>
-                        <div style="clear: both; font-weight: bold;padding-top: 15px;">
-                            <i>{{$post->description}}</i>
-                        </div>
-                    </div>
-                    <!-- product-page-photo start -->
-                    <div class="col-md-12">
-                        <div class="product-page-photo">
-                            <img src="{{asset($post->thumb)}}" alt="{{$post->name}}" width="100%">
-                        </div>
-                    </div>
-                    <!-- product-page-photo end -->
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="product-tab">
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="home">
-                                    <div class="content-post">
-                                        <p>
-                                            {!!$post->content!!}
-                                        </p>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-12 order-sm-1 order-1 pdrNone">
+                        <div class="about-container">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        {!! $post->content !!}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="features-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="section-heading">
-                            <h3>Bài thi công cùng danh mục</h3>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-12 order-2">
+                        <div class="sort-product">
+                            <p class="font-weight-bold">Tin tức mới nhất</p>
+                            <ul>
+                                @if(isset($posts) && !empty($posts))
+                                    @foreach($posts as $item)
+                                        <li>
+                                            <a href="{{url('tin-tuc/'.$item->slug)}}" style="text-decoration: none;">
+                                                <img src="{{asset($item->thumb)}}" alt="{{$item->name}}" style="width: 99px;max-height: 75px; margin-right: 20px;float: left;">
+                                                <div class="content" style="overflow: hidden;font-size: 14px;line-height: 20px; height: 75px;">
+                                                    <span style="margin-bottom: 15px;">{{\Illuminate\Support\Str::words($item->name, 15)}}</span> <br>
+                                                    <span style="color: #70C367;">{{date('d/m/Y',strtotime($item->created_at))}}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                        <div class="sort-product">
+                            <p class="font-weight-bold">Danh mục tin tức</p>
+                            <ul>
+                                @if(isset($categoryPost) && !empty($categoryPost))
+                                    @foreach($categoryPost as $item)
+                                        <li class="active">
+                                            <a href="{{url('tin-tuc/danh-muc/'.$item['slug'])}}">
+                                                <i class="fa fa-newspaper-o" aria-hidden="true"></i> {{$item['name']}}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    @include('front._partials._list_post')
-                </div>
             </div>
         </div>
-    </div>
-</div>
+    </main>
 @stop

@@ -56,6 +56,7 @@
                                     <th>ID</th>
                                     <th>Ảnh</th>
                                     <th>Tên danh mục</th>
+                                    <th>Danh mục cha</th>
                                     <th>Thể loại</th>
                                     <th>Nổi bật</th>
                                     <th>Hành động</th>
@@ -71,6 +72,7 @@
                                             @endif
                                         </td>
                                         <td>{{$item->name}}</td>
+                                        <td>{{!empty($item->parent) ? $item->parent->name : '--'}}</td>
                                         <td>
                                             {{$item->type == $typePost ? 'Tin tức' : 'Sản phẩm'}}
                                         </td>

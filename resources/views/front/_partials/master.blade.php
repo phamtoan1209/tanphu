@@ -52,6 +52,7 @@
     <script src="{{asset('front/js/slick.js')}}"></script>
     <script src="{{asset('front/js/ninja-slider.js')}}"></script>
     <script src="{{asset('front/js/thumbnail-slider.js')}}" type="text/javascript"></script>
+    <script src="{{asset('front/js/jquery.lazy.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $("#respMenu").aceResponsiveMenu({
@@ -179,6 +180,12 @@
                 $('.header').removeClass('sticky');
             }
         });
+        if($('.img-fluid').length){
+            $('.img-fluid').Lazy({
+                effect: 'fadeIn',
+                visibleOnly: true,
+            });
+        }
     </script>
     @yield('js')
 </html>

@@ -16,8 +16,9 @@
                             <div class="form-group">
                                 <label for="exampleInputFile">Ảnh slide</label>
                                 <input type="file" name="thumb" id="thumb" accept="image/*" {{ !isset($item) ? 'required="required"' : ''}}><br>
+                                <p>Lưu ý: Chọn ảnh kích thước 1920x550 để có hiển thị tốt nhất</p>
                                 <?php if(isset($item) && $item->thumb != ''): ?>
-                                <img src="{{asset($item->thumb)}}" alt="" width="200">
+                                    <img src="{{asset($item->thumb)}}" alt="" width="200">
                                 <?php endif; ?>
                             </div>
                             <div class="form-group">

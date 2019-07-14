@@ -19,7 +19,7 @@ class Category extends Model
     public static $selectArr = ['id','name','slug','type','parent_id','description','hot','thumb','large','title_seo','description_seo','keyword_seo'];
 
     public function getList($filter = [],$limit = self::PAGE_ITEM){
-        $query = $this->select(['*']);
+        $query = $this->select(['*'])->with('parent');
         if(isset($filter['name']) && $filter['name'] != ''){
             $query->where('name','like','%'.$filter['name'].'%');
         }

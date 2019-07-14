@@ -33,7 +33,7 @@ class PostController extends BaseController
         view()->share('actionUpdate',$this->lastPrefix.'.update');
         view()->share('actionDelete',$this->lastPrefix.'.delete');
         view()->share('actionStatus',$this->lastPrefix.'.status');
-        view()->share('breadcrumb','thi công');
+        view()->share('breadcrumb','tin tức');
         view()->share('modul',$this->pathUpload);
         view()->share('statusOff',Post::STATUS_OFF);
         view()->share('statusOn',Post::STATUS_ON);
@@ -69,7 +69,7 @@ class PostController extends BaseController
         $data = $request->only('name','content','category_id','admin_id','description','large','title_seo','description_seo','keyword_seo');
         if($request->hasFile('thumb')){
             $file = $request->file('thumb');
-            $data['large'] = $this->uploadFile($file,$this->pathUpload,true, 400,400);
+            $data['large'] = $this->uploadFile($file,$this->pathUpload,true, 400,350);
             $data['thumb'] = $this->getUrlImgThumb($data['large'],$this->pathUpload);
         }
         $data['status'] = 0;

@@ -41,7 +41,11 @@ class Post extends Model
             $query->where('name','like','%'.$filter['name'].'%');
         }
         if(isset($filter['category_id']) && $filter['category_id'] != ''){
-            $query->where('category_id',$filter['category_id']);
+            if(is_array($filter['category_id'])){
+                $query->whereIn('category_id',$filter['category_id']);
+            }else{
+                $query->where('category_id',$filter['category_id']);
+            }
         }
         if($orderBy){
             $query->orderBy('id','DESC');
@@ -50,7 +54,8 @@ class Post extends Model
     }
 
     public static function getPostSame($id,$categoryId){
-    return static::where('id','<>',$id)->where('status',self::STATUS_ON)->where('category_id',$categoryId)->orderBy('id','DESC')->take(3)->get();
-}
+    $arrCate = Category::getAllIdsRelation($categoryId);
+        return static::where('id','<>',$id)->where('status',self::STATUS_ON)->whereIn('category_id',$arrCate)->orderBy('id','DESC')->take(6)->get();
+    }
 
 }
